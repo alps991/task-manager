@@ -26,7 +26,7 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateAuthToken();
         res.send({ user: user.getPublicProfile(), token });
     } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send({ error: err.message });
     }
 });
 
@@ -37,7 +37,7 @@ router.post('/users/logout', auth, async (req, res) => {
         await user.save();
         res.status(200).send();
     } catch (err) {
-        res.status(500).send();
+        res.status(500).send(err);
     }
 });
 
